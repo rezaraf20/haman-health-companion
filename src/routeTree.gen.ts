@@ -10,15 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as AuthConsentRouteImport } from './routes/auth/consent'
 import { Route as AuthForgotRouteImport } from './routes/auth/forgot'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthTwoFactorRouteImport } from './routes/auth/two-factor'
+import { Route as SessionIndexRouteImport } from './routes/session/index'
+import { Route as SessionActiveRouteImport } from './routes/session/active'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthConsentRoute = AuthConsentRouteImport.update({
@@ -46,66 +54,97 @@ const AuthTwoFactorRoute = AuthTwoFactorRouteImport.update({
   path: '/auth/two-factor',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SessionIndexRoute = SessionIndexRouteImport.update({
+  id: '/session/',
+  path: '/session/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SessionActiveRoute = SessionActiveRouteImport.update({
+  id: '/session/active',
+  path: '/session/active',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/onboarding': typeof OnboardingRoute
   '/auth/consent': typeof AuthConsentRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/two-factor': typeof AuthTwoFactorRoute
+  '/session/active': typeof SessionActiveRoute
+  '/session/': typeof SessionIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/onboarding': typeof OnboardingRoute
   '/auth/consent': typeof AuthConsentRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/two-factor': typeof AuthTwoFactorRoute
+  '/session/active': typeof SessionActiveRoute
+  '/session': typeof SessionIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/onboarding': typeof OnboardingRoute
   '/auth/consent': typeof AuthConsentRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/two-factor': typeof AuthTwoFactorRoute
+  '/session/active': typeof SessionActiveRoute
+  '/session/': typeof SessionIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/onboarding'
     | '/auth/consent'
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/auth/two-factor'
+    | '/session/active'
+    | '/session/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/onboarding'
     | '/auth/consent'
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/auth/two-factor'
+    | '/session/active'
+    | '/session'
   id:
     | '__root__'
     | '/'
+    | '/onboarding'
     | '/auth/consent'
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/auth/two-factor'
+    | '/session/active'
+    | '/session/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OnboardingRoute: typeof OnboardingRoute
   AuthConsentRoute: typeof AuthConsentRoute
   AuthForgotRoute: typeof AuthForgotRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
   AuthTwoFactorRoute: typeof AuthTwoFactorRoute
+  SessionActiveRoute: typeof SessionActiveRoute
+  SessionIndexRoute: typeof SessionIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -115,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/consent': {
@@ -152,16 +198,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthTwoFactorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/session/': {
+      id: '/session/'
+      path: '/session'
+      fullPath: '/session/'
+      preLoaderRoute: typeof SessionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/session/active': {
+      id: '/session/active'
+      path: '/session/active'
+      fullPath: '/session/active'
+      preLoaderRoute: typeof SessionActiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OnboardingRoute: OnboardingRoute,
   AuthConsentRoute: AuthConsentRoute,
   AuthForgotRoute: AuthForgotRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   AuthTwoFactorRoute: AuthTwoFactorRoute,
+  SessionActiveRoute: SessionActiveRoute,
+  SessionIndexRoute: SessionIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
