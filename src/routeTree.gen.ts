@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthConsentRouteImport } from './routes/auth/consent'
+import { Route as AuthForgotRouteImport } from './routes/auth/forgot'
+import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AuthRegisterRouteImport } from './routes/auth/register'
+import { Route as AuthTwoFactorRouteImport } from './routes/auth/two-factor'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthConsentRoute = AuthConsentRouteImport.update({
+  id: '/auth/consent',
+  path: '/auth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthForgotRoute = AuthForgotRouteImport.update({
+  id: '/auth/forgot',
+  path: '/auth/forgot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthTwoFactorRoute = AuthTwoFactorRouteImport.update({
+  id: '/auth/two-factor',
+  path: '/auth/two-factor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth/consent': typeof AuthConsentRoute
+  '/auth/forgot': typeof AuthForgotRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
+  '/auth/two-factor': typeof AuthTwoFactorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth/consent': typeof AuthConsentRoute
+  '/auth/forgot': typeof AuthForgotRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
+  '/auth/two-factor': typeof AuthTwoFactorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth/consent': typeof AuthConsentRoute
+  '/auth/forgot': typeof AuthForgotRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
+  '/auth/two-factor': typeof AuthTwoFactorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth/consent'
+    | '/auth/forgot'
+    | '/auth/login'
+    | '/auth/register'
+    | '/auth/two-factor'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth/consent'
+    | '/auth/forgot'
+    | '/auth/login'
+    | '/auth/register'
+    | '/auth/two-factor'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth/consent'
+    | '/auth/forgot'
+    | '/auth/login'
+    | '/auth/register'
+    | '/auth/two-factor'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthConsentRoute: typeof AuthConsentRoute
+  AuthForgotRoute: typeof AuthForgotRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
+  AuthTwoFactorRoute: typeof AuthTwoFactorRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/consent': {
+      id: '/auth/consent'
+      path: '/auth/consent'
+      fullPath: '/auth/consent'
+      preLoaderRoute: typeof AuthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/forgot': {
+      id: '/auth/forgot'
+      path: '/auth/forgot'
+      fullPath: '/auth/forgot'
+      preLoaderRoute: typeof AuthForgotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/two-factor': {
+      id: '/auth/two-factor'
+      path: '/auth/two-factor'
+      fullPath: '/auth/two-factor'
+      preLoaderRoute: typeof AuthTwoFactorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthConsentRoute: AuthConsentRoute,
+  AuthForgotRoute: AuthForgotRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
+  AuthTwoFactorRoute: AuthTwoFactorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
