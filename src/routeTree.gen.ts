@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccountRouteImport } from './routes/account'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as TimelineRouteImport } from './routes/timeline'
+import { Route as TrendsRouteImport } from './routes/trends'
 import { Route as AuthConsentRouteImport } from './routes/auth/consent'
 import { Route as AuthForgotRouteImport } from './routes/auth/forgot'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthTwoFactorRouteImport } from './routes/auth/two-factor'
+import { Route as RecordsIndexRouteImport } from './routes/records/index'
+import { Route as RecordsRecordIdRouteImport } from './routes/records/$recordId'
 import { Route as SessionIndexRouteImport } from './routes/session/index'
 import { Route as SessionActiveRouteImport } from './routes/session/active'
 
@@ -24,9 +30,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrendsRoute = TrendsRouteImport.update({
+  id: '/trends',
+  path: '/trends',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthConsentRoute = AuthConsentRouteImport.update({
@@ -54,6 +80,16 @@ const AuthTwoFactorRoute = AuthTwoFactorRouteImport.update({
   path: '/auth/two-factor',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecordsIndexRoute = RecordsIndexRouteImport.update({
+  id: '/records/',
+  path: '/records/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecordsRecordIdRoute = RecordsRecordIdRouteImport.update({
+  id: '/records/$recordId',
+  path: '/records/$recordId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SessionIndexRoute = SessionIndexRouteImport.update({
   id: '/session/',
   path: '/session/',
@@ -67,83 +103,125 @@ const SessionActiveRoute = SessionActiveRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
+  '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
+  '/timeline': typeof TimelineRoute
+  '/trends': typeof TrendsRoute
   '/auth/consent': typeof AuthConsentRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/two-factor': typeof AuthTwoFactorRoute
+  '/records/$recordId': typeof RecordsRecordIdRoute
   '/session/active': typeof SessionActiveRoute
+  '/records/': typeof RecordsIndexRoute
   '/session/': typeof SessionIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
+  '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
+  '/timeline': typeof TimelineRoute
+  '/trends': typeof TrendsRoute
   '/auth/consent': typeof AuthConsentRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/two-factor': typeof AuthTwoFactorRoute
+  '/records/$recordId': typeof RecordsRecordIdRoute
   '/session/active': typeof SessionActiveRoute
+  '/records': typeof RecordsIndexRoute
   '/session': typeof SessionIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
+  '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
+  '/timeline': typeof TimelineRoute
+  '/trends': typeof TrendsRoute
   '/auth/consent': typeof AuthConsentRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/two-factor': typeof AuthTwoFactorRoute
+  '/records/$recordId': typeof RecordsRecordIdRoute
   '/session/active': typeof SessionActiveRoute
+  '/records/': typeof RecordsIndexRoute
   '/session/': typeof SessionIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/account'
+    | '/dashboard'
     | '/onboarding'
+    | '/timeline'
+    | '/trends'
     | '/auth/consent'
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/auth/two-factor'
+    | '/records/$recordId'
     | '/session/active'
+    | '/records/'
     | '/session/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/account'
+    | '/dashboard'
     | '/onboarding'
+    | '/timeline'
+    | '/trends'
     | '/auth/consent'
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/auth/two-factor'
+    | '/records/$recordId'
     | '/session/active'
+    | '/records'
     | '/session'
   id:
     | '__root__'
     | '/'
+    | '/account'
+    | '/dashboard'
     | '/onboarding'
+    | '/timeline'
+    | '/trends'
     | '/auth/consent'
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/auth/two-factor'
+    | '/records/$recordId'
     | '/session/active'
+    | '/records/'
     | '/session/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountRoute: typeof AccountRoute
+  DashboardRoute: typeof DashboardRoute
   OnboardingRoute: typeof OnboardingRoute
+  TimelineRoute: typeof TimelineRoute
+  TrendsRoute: typeof TrendsRoute
   AuthConsentRoute: typeof AuthConsentRoute
   AuthForgotRoute: typeof AuthForgotRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
   AuthTwoFactorRoute: typeof AuthTwoFactorRoute
+  RecordsRecordIdRoute: typeof RecordsRecordIdRoute
   SessionActiveRoute: typeof SessionActiveRoute
+  RecordsIndexRoute: typeof RecordsIndexRoute
   SessionIndexRoute: typeof SessionIndexRoute
 }
 
@@ -156,11 +234,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/onboarding': {
       id: '/onboarding'
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trends': {
+      id: '/trends'
+      path: '/trends'
+      fullPath: '/trends'
+      preLoaderRoute: typeof TrendsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/consent': {
@@ -198,6 +304,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthTwoFactorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/records/': {
+      id: '/records/'
+      path: '/records'
+      fullPath: '/records/'
+      preLoaderRoute: typeof RecordsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/records/$recordId': {
+      id: '/records/$recordId'
+      path: '/records/$recordId'
+      fullPath: '/records/$recordId'
+      preLoaderRoute: typeof RecordsRecordIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/session/': {
       id: '/session/'
       path: '/session'
@@ -217,13 +337,19 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountRoute: AccountRoute,
+  DashboardRoute: DashboardRoute,
   OnboardingRoute: OnboardingRoute,
+  TimelineRoute: TimelineRoute,
+  TrendsRoute: TrendsRoute,
   AuthConsentRoute: AuthConsentRoute,
   AuthForgotRoute: AuthForgotRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   AuthTwoFactorRoute: AuthTwoFactorRoute,
+  RecordsRecordIdRoute: RecordsRecordIdRoute,
   SessionActiveRoute: SessionActiveRoute,
+  RecordsIndexRoute: RecordsIndexRoute,
   SessionIndexRoute: SessionIndexRoute,
 }
 export const routeTree = rootRouteImport
