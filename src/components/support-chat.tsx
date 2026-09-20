@@ -54,14 +54,14 @@ export function SupportChat() {
           role="dialog"
           aria-label={t("support_title")}
           className={cn(
-            "fixed z-40 flex flex-col overflow-hidden card-soft animate-in fade-in slide-in-from-bottom-4",
+            "fixed z-40 flex flex-col overflow-hidden card-soft text-card-foreground animate-in fade-in slide-in-from-bottom-4",
             "inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+9rem)] max-h-[60vh] md:inset-x-auto md:right-6 md:bottom-24 md:h-[520px] md:max-h-[70vh] md:w-[380px]",
           )}
         >
           <div className="flex items-center gap-3 border-b px-4 py-3">
             <span className="size-8 rounded-full orb" />
             <div className="min-w-0">
-              <p className="text-sm font-semibold">{t("support_title")}</p>
+              <p className="text-sm font-semibold text-card-foreground">{t("support_title")}</p>
               <p className="truncate text-[11px] text-muted-foreground">App help only · no medical advice</p>
             </div>
           </div>
