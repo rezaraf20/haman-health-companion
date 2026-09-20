@@ -21,7 +21,7 @@ export const Route = createFileRoute("/records/")({
   component: RecordsPage,
 });
 
-export const RECORD_TYPES: { value: RecordType; label: string }[] = [
+const RECORD_TYPES: { value: RecordType; label: string }[] = [
   { value: "lab", label: "Lab results" },
   { value: "letter", label: "Letter" },
   { value: "prescription", label: "Prescription" },
