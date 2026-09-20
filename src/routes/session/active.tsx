@@ -36,15 +36,15 @@ function ActiveSessionPage() {
   const { t } = useI18n();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const { data: session, isLoading } = useQuery({ queryKey: ["session", "current"], queryFn: api.sessions.current });
+  const { data: session, isFetched, isFetching } = useQuery({ queryKey: ["session", "current"], queryFn: api.sessions.current });
   const [localCount, setLocalCount] = useState(0);
   const [recent, setRecent] = useState<string[]>([]);
   const queue = useRef<CoughEvent[]>([]);
   const elapsed = useElapsed(session?.startedAt);
 
   useEffect(() => {
-    if (!isLoading && !session) navigate({ to: "/session" });
-  }, [isLoading, session, navigate]);
+    if (isFetched && !isFetching && !session) navigate({ to: "/session" });
+  }, [isFetched, isFetching, session, navigate]);
 
   // Flush queued cough events (timestamp, count, session_id) periodically. No audio is ever captured here.
   useEffect(() => {
