@@ -47,7 +47,7 @@ function OnboardingPage() {
   const navigate = useNavigate();
   const [i, setI] = useState(0);
   useRequireAuth();
-  const step = STEPS[i];
+  const step = STEPS[i] ?? STEPS[0]!;
   const last = i === STEPS.length - 1;
 
   return (

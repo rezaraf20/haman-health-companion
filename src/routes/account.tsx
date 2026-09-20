@@ -11,7 +11,7 @@ export const Route = createFileRoute("/account")({
   component: AccountLayout,
 });
 
-export const ACCOUNT_SECTIONS: { to: string; label: string; hint: string; icon: LucideIcon }[] = [
+const ACCOUNT_SECTIONS: { to: string; label: string; hint: string; icon: LucideIcon }[] = [
   { to: "/account", label: "Profile", hint: "Name and email", icon: UserRound },
   { to: "/account/security", label: "Security", hint: "Password, 2FA, sessions", icon: Lock },
   { to: "/account/privacy", label: "Privacy", hint: "Consent, export, delete", icon: Shield },

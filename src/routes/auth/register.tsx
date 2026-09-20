@@ -30,7 +30,10 @@ function RegisterPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (password.length < 8) return toast.error("Use at least 8 characters.");
+    if (password.length < 8) {
+      toast.error("Use at least 8 characters.");
+      return;
+    }
     setBusy(true);
     try {
       await api.auth.register(name, email, password);

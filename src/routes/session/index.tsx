@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Mic, Moon, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -28,6 +28,7 @@ const SENS: NightSession["sensitivity"][] = ["low", "medium", "high"];
 function SessionSetupPage() {
   const { t } = useI18n();
   const navigate = useNavigate();
+  const qc = useQueryClient();
   const [sensitivity, setSensitivity] = useState<NightSession["sensitivity"]>("medium");
   const [from, setFrom] = useState("22:30");
   const [to, setTo] = useState("07:00");
@@ -37,7 +38,8 @@ function SessionSetupPage() {
   async function start() {
     setBusy(true);
     try {
-      await api.sessions.start({ sensitivity, quietHours: { from, to } });
+      const started = await api.sessions.start({ sensitivity, quietHours: { from, to } });
+      qc.setQueryData(["session", "current"], started);
       navigate({ to: "/session/active" });
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Could not start session");

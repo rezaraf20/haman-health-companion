@@ -21,7 +21,7 @@ export const Route = createFileRoute("/records/")({
   component: RecordsPage,
 });
 
-export const RECORD_TYPES: { value: RecordType; label: string }[] = [
+const RECORD_TYPES: { value: RecordType; label: string }[] = [
   { value: "lab", label: "Lab results" },
   { value: "letter", label: "Letter" },
   { value: "prescription", label: "Prescription" },
@@ -39,7 +39,10 @@ function RecordsPage() {
 
   async function onFile(file?: File) {
     if (!file) return;
-    if (!/^(application\/pdf|image\/)/.test(file.type)) return toast.error("Please choose a PDF or an image.");
+    if (!/^(application\/pdf|image\/)/.test(file.type)) {
+      toast.error("Please choose a PDF or an image.");
+      return;
+    }
     setBusy(true);
     try {
       await api.records.upload(file, type);

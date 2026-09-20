@@ -15,6 +15,12 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as TrendsRouteImport } from './routes/trends'
+import { Route as AccountIndexRouteImport } from './routes/account/index'
+import { Route as AccountDevicesRouteImport } from './routes/account/devices'
+import { Route as AccountLanguageRouteImport } from './routes/account/language'
+import { Route as AccountNotificationsRouteImport } from './routes/account/notifications'
+import { Route as AccountPrivacyRouteImport } from './routes/account/privacy'
+import { Route as AccountSecurityRouteImport } from './routes/account/security'
 import { Route as AuthConsentRouteImport } from './routes/auth/consent'
 import { Route as AuthForgotRouteImport } from './routes/auth/forgot'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
@@ -54,6 +60,36 @@ const TrendsRoute = TrendsRouteImport.update({
   id: '/trends',
   path: '/trends',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AccountIndexRoute = AccountIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AccountRoute,
+} as any)
+const AccountDevicesRoute = AccountDevicesRouteImport.update({
+  id: '/devices',
+  path: '/devices',
+  getParentRoute: () => AccountRoute,
+} as any)
+const AccountLanguageRoute = AccountLanguageRouteImport.update({
+  id: '/language',
+  path: '/language',
+  getParentRoute: () => AccountRoute,
+} as any)
+const AccountNotificationsRoute = AccountNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AccountRoute,
+} as any)
+const AccountPrivacyRoute = AccountPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => AccountRoute,
+} as any)
+const AccountSecurityRoute = AccountSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => AccountRoute,
 } as any)
 const AuthConsentRoute = AuthConsentRouteImport.update({
   id: '/auth/consent',
@@ -103,11 +139,16 @@ const SessionActiveRoute = SessionActiveRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/account': typeof AccountRoute
+  '/account': typeof AccountRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
   '/timeline': typeof TimelineRoute
   '/trends': typeof TrendsRoute
+  '/account/devices': typeof AccountDevicesRoute
+  '/account/language': typeof AccountLanguageRoute
+  '/account/notifications': typeof AccountNotificationsRoute
+  '/account/privacy': typeof AccountPrivacyRoute
+  '/account/security': typeof AccountSecurityRoute
   '/auth/consent': typeof AuthConsentRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
@@ -115,16 +156,21 @@ export interface FileRoutesByFullPath {
   '/auth/two-factor': typeof AuthTwoFactorRoute
   '/records/$recordId': typeof RecordsRecordIdRoute
   '/session/active': typeof SessionActiveRoute
+  '/account/': typeof AccountIndexRoute
   '/records/': typeof RecordsIndexRoute
   '/session/': typeof SessionIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/account': typeof AccountRoute
   '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
   '/timeline': typeof TimelineRoute
   '/trends': typeof TrendsRoute
+  '/account/devices': typeof AccountDevicesRoute
+  '/account/language': typeof AccountLanguageRoute
+  '/account/notifications': typeof AccountNotificationsRoute
+  '/account/privacy': typeof AccountPrivacyRoute
+  '/account/security': typeof AccountSecurityRoute
   '/auth/consent': typeof AuthConsentRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
@@ -132,17 +178,23 @@ export interface FileRoutesByTo {
   '/auth/two-factor': typeof AuthTwoFactorRoute
   '/records/$recordId': typeof RecordsRecordIdRoute
   '/session/active': typeof SessionActiveRoute
+  '/account': typeof AccountIndexRoute
   '/records': typeof RecordsIndexRoute
   '/session': typeof SessionIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/account': typeof AccountRoute
+  '/account': typeof AccountRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
   '/timeline': typeof TimelineRoute
   '/trends': typeof TrendsRoute
+  '/account/devices': typeof AccountDevicesRoute
+  '/account/language': typeof AccountLanguageRoute
+  '/account/notifications': typeof AccountNotificationsRoute
+  '/account/privacy': typeof AccountPrivacyRoute
+  '/account/security': typeof AccountSecurityRoute
   '/auth/consent': typeof AuthConsentRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
@@ -150,6 +202,7 @@ export interface FileRoutesById {
   '/auth/two-factor': typeof AuthTwoFactorRoute
   '/records/$recordId': typeof RecordsRecordIdRoute
   '/session/active': typeof SessionActiveRoute
+  '/account/': typeof AccountIndexRoute
   '/records/': typeof RecordsIndexRoute
   '/session/': typeof SessionIndexRoute
 }
@@ -162,6 +215,11 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/timeline'
     | '/trends'
+    | '/account/devices'
+    | '/account/language'
+    | '/account/notifications'
+    | '/account/privacy'
+    | '/account/security'
     | '/auth/consent'
     | '/auth/forgot'
     | '/auth/login'
@@ -169,16 +227,21 @@ export interface FileRouteTypes {
     | '/auth/two-factor'
     | '/records/$recordId'
     | '/session/active'
+    | '/account/'
     | '/records/'
     | '/session/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/account'
     | '/dashboard'
     | '/onboarding'
     | '/timeline'
     | '/trends'
+    | '/account/devices'
+    | '/account/language'
+    | '/account/notifications'
+    | '/account/privacy'
+    | '/account/security'
     | '/auth/consent'
     | '/auth/forgot'
     | '/auth/login'
@@ -186,6 +249,7 @@ export interface FileRouteTypes {
     | '/auth/two-factor'
     | '/records/$recordId'
     | '/session/active'
+    | '/account'
     | '/records'
     | '/session'
   id:
@@ -196,6 +260,11 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/timeline'
     | '/trends'
+    | '/account/devices'
+    | '/account/language'
+    | '/account/notifications'
+    | '/account/privacy'
+    | '/account/security'
     | '/auth/consent'
     | '/auth/forgot'
     | '/auth/login'
@@ -203,13 +272,14 @@ export interface FileRouteTypes {
     | '/auth/two-factor'
     | '/records/$recordId'
     | '/session/active'
+    | '/account/'
     | '/records/'
     | '/session/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AccountRoute: typeof AccountRoute
+  AccountRoute: typeof AccountRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   OnboardingRoute: typeof OnboardingRoute
   TimelineRoute: typeof TimelineRoute
@@ -268,6 +338,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/trends'
       preLoaderRoute: typeof TrendsRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/account/': {
+      id: '/account/'
+      path: '/'
+      fullPath: '/account/'
+      preLoaderRoute: typeof AccountIndexRouteImport
+      parentRoute: typeof AccountRoute
+    }
+    '/account/devices': {
+      id: '/account/devices'
+      path: '/devices'
+      fullPath: '/account/devices'
+      preLoaderRoute: typeof AccountDevicesRouteImport
+      parentRoute: typeof AccountRoute
+    }
+    '/account/language': {
+      id: '/account/language'
+      path: '/language'
+      fullPath: '/account/language'
+      preLoaderRoute: typeof AccountLanguageRouteImport
+      parentRoute: typeof AccountRoute
+    }
+    '/account/notifications': {
+      id: '/account/notifications'
+      path: '/notifications'
+      fullPath: '/account/notifications'
+      preLoaderRoute: typeof AccountNotificationsRouteImport
+      parentRoute: typeof AccountRoute
+    }
+    '/account/privacy': {
+      id: '/account/privacy'
+      path: '/privacy'
+      fullPath: '/account/privacy'
+      preLoaderRoute: typeof AccountPrivacyRouteImport
+      parentRoute: typeof AccountRoute
+    }
+    '/account/security': {
+      id: '/account/security'
+      path: '/security'
+      fullPath: '/account/security'
+      preLoaderRoute: typeof AccountSecurityRouteImport
+      parentRoute: typeof AccountRoute
     }
     '/auth/consent': {
       id: '/auth/consent'
@@ -335,9 +447,30 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AccountRouteChildren {
+  AccountDevicesRoute: typeof AccountDevicesRoute
+  AccountLanguageRoute: typeof AccountLanguageRoute
+  AccountNotificationsRoute: typeof AccountNotificationsRoute
+  AccountPrivacyRoute: typeof AccountPrivacyRoute
+  AccountSecurityRoute: typeof AccountSecurityRoute
+  AccountIndexRoute: typeof AccountIndexRoute
+}
+
+const AccountRouteChildren: AccountRouteChildren = {
+  AccountDevicesRoute: AccountDevicesRoute,
+  AccountLanguageRoute: AccountLanguageRoute,
+  AccountNotificationsRoute: AccountNotificationsRoute,
+  AccountPrivacyRoute: AccountPrivacyRoute,
+  AccountSecurityRoute: AccountSecurityRoute,
+  AccountIndexRoute: AccountIndexRoute,
+}
+
+const AccountRouteWithChildren =
+  AccountRoute._addFileChildren(AccountRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AccountRoute: AccountRoute,
+  AccountRoute: AccountRouteWithChildren,
   DashboardRoute: DashboardRoute,
   OnboardingRoute: OnboardingRoute,
   TimelineRoute: TimelineRoute,

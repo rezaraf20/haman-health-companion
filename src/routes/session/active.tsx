@@ -36,15 +36,15 @@ function ActiveSessionPage() {
   const { t } = useI18n();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const { data: session, isLoading } = useQuery({ queryKey: ["session", "current"], queryFn: api.sessions.current });
+  const { data: session, isFetched, isFetching } = useQuery({ queryKey: ["session", "current"], queryFn: api.sessions.current });
   const [localCount, setLocalCount] = useState(0);
   const [recent, setRecent] = useState<string[]>([]);
   const queue = useRef<CoughEvent[]>([]);
   const elapsed = useElapsed(session?.startedAt);
 
   useEffect(() => {
-    if (!isLoading && !session) navigate({ to: "/session" });
-  }, [isLoading, session, navigate]);
+    if (isFetched && !isFetching && !session) navigate({ to: "/session" });
+  }, [isFetched, isFetching, session, navigate]);
 
   // Flush queued cough events (timestamp, count, session_id) periodically. No audio is ever captured here.
   useEffect(() => {
@@ -87,13 +87,9 @@ function ActiveSessionPage() {
         </div>
 
         <div className="flex flex-1 flex-col items-center justify-center text-center">
-          <div className="relative mb-10 grid size-56 place-items-center">
-            <div className="absolute inset-0 animate-breathe rounded-full orb opacity-80" />
-            <div className="relative">
-              <p className="text-6xl font-semibold tracking-tight">{(session?.coughCount ?? 0) + localCount}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{t("cough_events")}</p>
-            </div>
-          </div>
+          <div className="mb-8 size-40 animate-breathe rounded-full orb opacity-90" />
+          <p className="text-6xl font-semibold tracking-tight tabular-nums">{(session?.coughCount ?? 0) + localCount}</p>
+          <p className="mt-1 mb-8 text-sm text-muted-foreground">{t("cough_events")}</p>
           <h1 className="text-2xl font-semibold tracking-tight">Sleep well</h1>
           <p className="mt-2 max-w-xs text-sm text-muted-foreground">
             Listening on-device for coughs. Keep the phone nearby; the screen can stay off.
