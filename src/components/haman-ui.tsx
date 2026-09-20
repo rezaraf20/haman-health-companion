@@ -90,7 +90,7 @@ export function RangeTabs({ value, onChange }: { value: Range; onChange: (r: Ran
           key={o.v}
           onClick={() => onChange(o.v)}
           className={cn(
-            "rounded-full px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors",
+            "whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors",
             value === o.v && "bg-primary text-primary-foreground",
           )}
         >
