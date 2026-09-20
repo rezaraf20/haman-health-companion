@@ -30,7 +30,10 @@ function SecurityPage() {
 
   async function changePassword(e: React.FormEvent) {
     e.preventDefault();
-    if (next.length < 8) return toast.error("Use at least 8 characters.");
+    if (next.length < 8) {
+      toast.error("Use at least 8 characters.");
+      return;
+    }
     setBusy(true);
     await api.account.changePassword(current, next);
     setBusy(false);

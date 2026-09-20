@@ -33,7 +33,7 @@ const METRICS: Metric[] = [
 function TrendsPage() {
   const { t } = useI18n();
   const [range, setRange] = useState<Range>(30);
-  const [metric, setMetric] = useState<Metric>(METRICS[0]);
+  const [metric, setMetric] = useState<Metric>(METRICS[0]!);
   const { data } = useQuery({ queryKey: ["dashboard", range], queryFn: () => api.dashboard.get(range) });
 
   const half = data ? Math.floor(data.points.length / 2) : 0;

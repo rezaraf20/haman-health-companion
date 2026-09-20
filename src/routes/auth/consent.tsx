@@ -33,7 +33,10 @@ function ConsentPage() {
   }, []);
 
   async function accept() {
-    if (!state?.coughTracking) return toast.error("Night cough events are needed for the app to work.");
+    if (!state?.coughTracking) {
+      toast.error("Night cough events are needed for the app to work.");
+      return;
+    }
     setBusy(true);
     await api.consent.update({ ...state, acceptedAt: new Date().toISOString() });
     setBusy(false);

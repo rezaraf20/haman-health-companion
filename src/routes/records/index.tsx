@@ -39,7 +39,10 @@ function RecordsPage() {
 
   async function onFile(file?: File) {
     if (!file) return;
-    if (!/^(application\/pdf|image\/)/.test(file.type)) return toast.error("Please choose a PDF or an image.");
+    if (!/^(application\/pdf|image\/)/.test(file.type)) {
+      toast.error("Please choose a PDF or an image.");
+      return;
+    }
     setBusy(true);
     try {
       await api.records.upload(file, type);

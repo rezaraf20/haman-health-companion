@@ -12,7 +12,7 @@ export function PageHeader({
   action,
   className,
 }: {
-  eyebrow?: string;
+  eyebrow?: string | undefined;
   title: string;
   action?: ReactNode;
   className?: string;
