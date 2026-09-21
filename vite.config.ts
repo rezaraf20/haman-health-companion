@@ -7,9 +7,10 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Fully client-rendered SPA: no SSR, no server functions/routes. The build
+  // emits a static client folder with index.html at its root (Capacitor-ready).
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
+    spa: { enabled: true, prerender: { outputPath: "/index.html" } },
+    prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
 });

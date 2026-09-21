@@ -5,6 +5,7 @@ import { useEffect, type ReactNode } from "react";
 import { useAuth } from "@/lib/auth";
 import { useI18n, type MessageKey } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { Logo } from "./logo";
 import { SupportChat } from "./support-chat";
 
 type NavItem = { to: string; icon: LucideIcon; label: MessageKey; mobile?: boolean };
@@ -59,9 +60,8 @@ export function AppShell({
       <div className="mx-auto flex w-full max-w-7xl">
         {!hideChrome && (
           <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar px-4 py-6 md:flex">
-            <Link to="/" className="mb-8 flex items-center gap-3 px-2">
-              <span className="size-9 rounded-full orb" />
-              <span className="text-base font-semibold tracking-tight">{t("appName")}</span>
+            <Link to="/" className="mb-8 flex items-center px-2" aria-label={t("appName")}>
+              <Logo variant={night ? "white" : "dark"} className="h-9" />
             </Link>
             <nav className="flex flex-1 flex-col gap-1">
               {NAV.map((item) => (

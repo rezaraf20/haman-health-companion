@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { Logo } from "@/components/logo";
 import { useI18n } from "@/lib/i18n";
 
 export function AuthLayout({ title, subtitle, children }: { title: string; subtitle?: string; children: ReactNode }) {
@@ -8,7 +9,7 @@ export function AuthLayout({ title, subtitle, children }: { title: string; subti
     <div className="min-h-screen bg-background bg-sky-wash">
       <div className="mx-auto flex min-h-screen w-full max-w-md flex-col px-6 pt-16 pb-10">
         <div className="mb-8 flex flex-col items-center text-center">
-          <div className="mb-6 size-24 animate-breathe rounded-full orb" />
+          <Logo className="mb-6 h-12" />
           <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
           {subtitle && <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p>}
         </div>

@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { AppShell } from "@/components/app-shell";
 import { primaryBtn } from "@/components/auth-layout";
 import { Disclaimer, PageHeader } from "@/components/haman-ui";
-import { api, type NightSession } from "@/lib/api";
+import { coughSession } from "@/lib/cough-session";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -23,23 +23,39 @@ export const Route = createFileRoute("/session/")({
   component: SessionSetupPage,
 });
 
-const SENS: NightSession["sensitivity"][] = ["low", "medium", "high"];
+const SENS = ["low", "medium", "high"] as const;
+type Sensitivity = (typeof SENS)[number];
+
+/** Next occurrence of an HH:MM wall-clock time, as an ISO timestamp. */
+function nextTimeIso(hhmm: string): string {
+  const parts = hhmm.split(":");
+  const h = Number(parts[0] ?? 7);
+  const m = Number(parts[1] ?? 0);
+  const at = new Date();
+  at.setSeconds(0, 0);
+  at.setHours(h, m);
+  if (at.getTime() <= Date.now()) at.setDate(at.getDate() + 1);
+  return at.toISOString();
+}
 
 function SessionSetupPage() {
   const { t } = useI18n();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const [sensitivity, setSensitivity] = useState<NightSession["sensitivity"]>("medium");
+  const [sensitivity, setSensitivity] = useState<Sensitivity>("medium");
   const [from, setFrom] = useState("22:30");
   const [to, setTo] = useState("07:00");
   const [busy, setBusy] = useState(false);
-  const current = useQuery({ queryKey: ["session", "current"], queryFn: api.sessions.current });
+  const status = useQuery({ queryKey: ["cough-session", "status"], queryFn: () => coughSession.getStatus() });
 
   async function start() {
     setBusy(true);
     try {
-      const started = await api.sessions.start({ sensitivity, quietHours: { from, to } });
-      qc.setQueryData(["session", "current"], started);
+      if (!(await coughSession.isAvailable())) throw new Error("Cough detection is not available on this device");
+      const permission = await coughSession.requestPermissions();
+      if (permission !== "granted") throw new Error("Permission is needed to track coughs tonight");
+      await coughSession.start({ autoStopAt: nextTimeIso(to) });
+      await qc.invalidateQueries({ queryKey: ["cough-session"] });
       navigate({ to: "/session/active" });
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Could not start session");
@@ -52,7 +68,7 @@ function SessionSetupPage() {
     <AppShell title={t("nav_session")}>
       <PageHeader eyebrow="Tonight" title={t("session_setup")} />
       <div className="space-y-4 px-5 md:px-8 md:max-w-2xl">
-        {current.data?.status === "active" && (
+        {status.data?.state === "running" && (
           <button onClick={() => navigate({ to: "/session/active" })} className="card-soft flex w-full items-center gap-3 p-4 text-left">
             <span className="size-3 animate-pulse rounded-full bg-primary" />
             <span className="text-sm font-medium">A session is already running — open it</span>
